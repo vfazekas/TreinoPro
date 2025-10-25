@@ -5,19 +5,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function UsersPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 px-4 sm:px-6 md:px-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Gestão de Usuários</h2>
           <p className="text-muted-foreground mt-2">Gerencie alunos e personal trainers</p>
         </div>
-        <Button>
+        <Button className="shrink-0">
           <Plus className="mr-2 h-4 w-4" />
           Adicionar Usuário
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Cards de resumo */}
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
@@ -52,6 +54,7 @@ export default function UsersPage() {
         </Card>
       </div>
 
+      {/* Lista de usuários */}
       <Card>
         <CardHeader>
           <CardTitle>Lista de Usuários</CardTitle>
@@ -59,81 +62,43 @@ export default function UsersPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors">
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback>JS</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">João Silva</p>
-                  <p className="text-xs text-muted-foreground">joao.silva@email.com</p>
+            {[
+              { name: "João Silva", email: "joao.silva@email.com", role: "Aluno", color: "primary" },
+              { name: "Maria Santos", email: "maria.santos@email.com", role: "Personal", color: "blue" },
+              { name: "Pedro Costa", email: "pedro.costa@email.com", role: "Aluno", color: "primary" },
+              { name: "Ana Oliveira", email: "ana.oliveira@email.com", role: "Admin", color: "red" },
+            ].map((user, index) => (
+              <div
+                key={index}
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors"
+              >
+                <div className="flex items-center gap-4 w-full sm:w-auto">
+                  <Avatar>
+                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
+                    <AvatarFallback>
+                      {user.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{user.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 mt-2 sm:mt-0">
+                  <span
+                    className={`text-xs bg-${user.color}-500/10 text-${user.color}-500 px-2 py-1 rounded-full`}
+                  >
+                    {user.role}
+                  </span>
+                  <Button variant="ghost" size="icon">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">Aluno</span>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors">
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback>MS</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Maria Santos</p>
-                  <p className="text-xs text-muted-foreground">maria.santos@email.com</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs bg-blue-500/10 text-blue-500 px-2 py-1 rounded-full">Personal</span>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors">
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback>PC</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Pedro Costa</p>
-                  <p className="text-xs text-muted-foreground">pedro.costa@email.com</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">Aluno</span>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors">
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback>AO</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Ana Oliveira</p>
-                  <p className="text-xs text-muted-foreground">ana.oliveira@email.com</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs bg-red-500/10 text-red-500 px-2 py-1 rounded-full">Admin</span>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
         </CardContent>
       </Card>
