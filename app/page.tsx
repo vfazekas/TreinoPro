@@ -1,9 +1,13 @@
+import { Navbar } from "@/components/(landingPage)/navbar"
+import { HeroSection } from "@/components/(landingPage)/hero-section"
+import { Footer } from "@/components/(landingPage)/footer"
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div>
-        hello
-      </div>
-    </div>
-  );
+    <main className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <Footer />
+    </main>
+  )
 }

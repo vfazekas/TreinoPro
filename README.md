@@ -34,5 +34,5 @@ Construído com **Next.js**, **ShadCN UI**, **Xata**, **Clerk**, **Prisma** e **
 
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/vfazekas/treinopro.git
+git clone https://github.com/vfazekas/TreinoPro.git
 cd fitplanner
