@@ -39,7 +39,7 @@ export function Sidebar() {
   const role = user?.publicMetadata?.role as string | undefined
 
   return (
-    <aside className="w-64 border-r border-border bg-card h-screen sticky top-0 flex flex-col">
+    <aside className="hidden md:flex w-64 border-r border-border bg-card h-screen sticky top-0 flex-col">
       <div className="p-6 border-b border-border">
         <div className="flex items-center gap-2">
           <Dumbbell className="h-7 w-7 text-primary" />
