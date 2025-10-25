@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { cn } from "@/lib/utils"
-import { Home, Dumbbell, BarChart, Users, Settings } from "lucide-react"
+import { Home, Dumbbell, BarChart, Users, Settings, PlayCircle } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useUser } from "@clerk/nextjs"
@@ -50,12 +50,21 @@ export function Sidebar() {
       <nav className="flex-1 p-4 space-y-2">
         <SidebarItem icon={Home} label="Início" href="/dashboard" active={pathname === "/dashboard"} />
 
-        <SidebarItem
-          icon={Dumbbell}
-          label="Treinos"
-          href="/dashboard/treinos"
-          active={pathname === "/dashboard/treinos"}
-        />
+        {role === "aluno" ? (
+          <SidebarItem
+            icon={PlayCircle}
+            label="Meu Treino"
+            href="/dashboard/meu-treino"
+            active={pathname === "/dashboard/meu-treino"}
+          />
+        ) : (
+          <SidebarItem
+            icon={Dumbbell}
+            label="Treinos"
+            href="/dashboard/treinos"
+            active={pathname?.startsWith("/dashboard/treinos")}
+          />
+        )}
 
         {role === "aluno" && (
           <SidebarItem

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus, Dumbbell } from "lucide-react"
+import Link from "next/link"
 
 export default function TreinosPage() {
   return (
@@ -10,10 +11,12 @@ export default function TreinosPage() {
           <h2 className="text-3xl font-bold tracking-tight">Treinos</h2>
           <p className="text-muted-foreground mt-2">Gerencie todos os treinos dos seus alunos</p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Novo Treino
-        </Button>
+        <Link href="/dashboard/treinos/novo">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Novo Treino
+          </Button>
+        </Link>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

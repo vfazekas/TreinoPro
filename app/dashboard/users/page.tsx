@@ -1,60 +1,53 @@
+import { CreateUserModal } from "@/components/(dashboard)/create-user-modal"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Plus, UserPlus, MoreVertical } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Users, UserCheck, UserX } from "lucide-react"
 
-export default function UsersPage() {
+export default function UsuariosPage() {
   return (
-    <div className="space-y-6 px-4 sm:px-6 md:px-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Gestão de Usuários</h2>
-          <p className="text-muted-foreground mt-2">Gerencie alunos e personal trainers</p>
+          <p className="text-muted-foreground mt-2">Gerencie todos os usuários do sistema</p>
         </div>
-        <Button className="shrink-0">
-          <Plus className="mr-2 h-4 w-4" />
-          Adicionar Usuário
-        </Button>
+        <CreateUserModal />
       </div>
 
-      {/* Cards de resumo */}
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
-            <UserPlus className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">156</div>
-            <p className="text-xs text-muted-foreground">+12 este mês</p>
+            <div className="text-2xl font-bold">24</div>
+            <p className="text-xs text-muted-foreground">+3 este mês</p>
           </CardContent>
         </Card>
-
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Alunos Ativos</CardTitle>
-            <UserPlus className="h-4 w-4 text-muted-foreground" />
+            <UserCheck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">142</div>
-            <p className="text-xs text-muted-foreground">91% do total</p>
+            <div className="text-2xl font-bold">18</div>
+            <p className="text-xs text-muted-foreground">75% do total</p>
           </CardContent>
         </Card>
-
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Personal Trainers</CardTitle>
-            <UserPlus className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Alunos Inativos</CardTitle>
+            <UserX className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">14</div>
-            <p className="text-xs text-muted-foreground">+2 este mês</p>
+            <div className="text-2xl font-bold">6</div>
+            <p className="text-xs text-muted-foreground">25% do total</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Lista de usuários */}
       <Card>
         <CardHeader>
           <CardTitle>Lista de Usuários</CardTitle>
@@ -63,18 +56,17 @@ export default function UsersPage() {
         <CardContent>
           <div className="space-y-4">
             {[
-              { name: "João Silva", email: "joao.silva@email.com", role: "Aluno", color: "primary" },
-              { name: "Maria Santos", email: "maria.santos@email.com", role: "Personal", color: "blue" },
-              { name: "Pedro Costa", email: "pedro.costa@email.com", role: "Aluno", color: "primary" },
-              { name: "Ana Oliveira", email: "ana.oliveira@email.com", role: "Admin", color: "red" },
+              { name: "João Silva", email: "joao@exemplo.com", role: "aluno", status: "ativo" },
+              { name: "Maria Santos", email: "maria@exemplo.com", role: "aluno", status: "ativo" },
+              { name: "Pedro Costa", email: "pedro@exemplo.com", role: "aluno", status: "inativo" },
+              { name: "Ana Oliveira", email: "ana@exemplo.com", role: "admin", status: "ativo" },
             ].map((user, index) => (
               <div
                 key={index}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors"
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent transition-colors"
               >
-                <div className="flex items-center gap-4 w-full sm:w-auto">
+                <div className="flex items-center gap-4">
                   <Avatar>
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
                     <AvatarFallback>
                       {user.name
                         .split(" ")
@@ -82,20 +74,14 @@ export default function UsersPage() {
                         .join("")}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">{user.name}</p>
-                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                  <div>
+                    <p className="font-medium">{user.name}</p>
+                    <p className="text-sm text-muted-foreground">{user.email}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 mt-2 sm:mt-0">
-                  <span
-                    className={`text-xs bg-${user.color}-500/10 text-${user.color}-500 px-2 py-1 rounded-full`}
-                  >
-                    {user.role}
-                  </span>
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
+                <div className="flex items-center gap-2">
+                  <Badge variant={user.role === "admin" ? "default" : "secondary"}>{user.role}</Badge>
+                  <Badge variant={user.status === "ativo" ? "default" : "outline"}>{user.status}</Badge>
                 </div>
               </div>
             ))}

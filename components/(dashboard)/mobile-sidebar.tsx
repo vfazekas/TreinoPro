@@ -1,30 +1,24 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Menu, Home, Dumbbell, BarChart, Users, Settings } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import type React from "react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { Menu, Home, Dumbbell, BarChart, Users, Settings, PlayCircle } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useUser } from "@clerk/nextjs"
+import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 interface SidebarItemProps {
-  icon: React.ElementType;
-  label: string;
-  href: string;
-  active?: boolean;
-  onClick?: () => void;
+  icon: React.ElementType
+  label: string
+  href: string
+  active?: boolean
+  onClick?: () => void
 }
 
-function SidebarItem({
-  icon: Icon,
-  label,
-  href,
-  active,
-  onClick,
-}: SidebarItemProps) {
+function SidebarItem({ icon: Icon, label, href, active, onClick }: SidebarItemProps) {
   return (
     <Link
       href={href}
@@ -33,21 +27,21 @@ function SidebarItem({
         "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
         active
           ? "bg-primary text-primary-foreground font-medium"
-          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       )}
     >
       <Icon className="h-5 w-5" />
       <span>{label}</span>
     </Link>
-  );
+  )
 }
 
 export function MobileSidebar() {
-  const pathname = usePathname();
-  const { user } = useUser();
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname()
+  const { user } = useUser()
+  const [open, setOpen] = useState(false)
 
-  const role = user?.publicMetadata?.role as string | undefined;
+  const role = user?.publicMetadata?.role as string | undefined
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -62,9 +56,7 @@ export function MobileSidebar() {
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-2">
               <Dumbbell className="h-7 w-7 text-primary" />
-              <SheetTitle className="text-xl font-bold tracking-tight">
-                TreinoPro
-              </SheetTitle>
+              <span className="text-xl font-bold tracking-tight">TreinoPro</span>
             </div>
           </div>
 
@@ -77,13 +69,23 @@ export function MobileSidebar() {
               onClick={() => setOpen(false)}
             />
 
-            <SidebarItem
-              icon={Dumbbell}
-              label="Treinos"
-              href="/dashboard/treinos"
-              active={pathname === "/dashboard/treinos"}
-              onClick={() => setOpen(false)}
-            />
+            {role === "aluno" ? (
+              <SidebarItem
+                icon={PlayCircle}
+                label="Meu Treino"
+                href="/dashboard/meu-treino"
+                active={pathname === "/dashboard/meu-treino"}
+                onClick={() => setOpen(false)}
+              />
+            ) : (
+              <SidebarItem
+                icon={Dumbbell}
+                label="Treinos"
+                href="/dashboard/treinos"
+                active={pathname?.startsWith("/dashboard/treinos")}
+                onClick={() => setOpen(false)}
+              />
+            )}
 
             {role === "aluno" && (
               <SidebarItem
@@ -99,8 +101,8 @@ export function MobileSidebar() {
               <SidebarItem
                 icon={Users}
                 label="Gestão de usuários"
-                href="/dashboard/users"
-                active={pathname === "/dashboard/users"}
+                href="/dashboard/usuarios"
+                active={pathname === "/dashboard/usuarios"}
                 onClick={() => setOpen(false)}
               />
             )}
@@ -116,5 +118,5 @@ export function MobileSidebar() {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
